@@ -27,7 +27,7 @@ body{
 #headWrapper {
     font-size: 30px;
     margin-bottom: 5px;
-    width: 90%;
+    width: 80%;
     font-weight: bold;
     display: flex;
     align-items:center;
@@ -54,7 +54,6 @@ button {
     background-color: white;
     border-radius: 15px;
     padding: 20px;
-    font-size: 10px;
 }
 
 .table {
@@ -67,13 +66,17 @@ button {
 }
 
 .tableHead { 
+    width: 10%;
     height: 30px;
     text-align: left;
-    padding: 0 10px;
+    padding: 0 5px;
+    font-size: 8px;
 }
 
 .tableData {
-    width: 120px;
+    font-size: 10px;
+    min-width: 20px;
+    width: 10%;
     height: 50px;
     padding: 2px;
     border-left: 1px solid lightgray;
