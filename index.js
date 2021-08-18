@@ -1,11 +1,12 @@
 window.onload = function () {
     const root = document.getElementById('root');
     const day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const today = new Date();
-    const getYear = today.getFullYear();
-    const getMonth = today.getMonth() + 1;
-
+    let today = new Date();
+    let year = today.getFullYear();
+    let mon = (today.getMonth() + 1) % 12;
+    let h = 1;
     return addWrapperAll(root);
+
 
     function addWrapperAll(parent) {
         const wrapperAll = document.createElement('div');
@@ -14,13 +15,103 @@ window.onload = function () {
 
         addHeadWrapper(wrapperAll);
         addTableWrapper(wrapperAll);
+
     }
 
     function addHeadWrapper(parent) {
         const headWrapper = document.createElement('div');
         parent.appendChild(headWrapper);
         headWrapper.id = 'headWrapper';
-        headWrapper.innerHTML = getYear + '년 ' + getMonth + '월';
+        addTodayButton(headWrapper);
+        addLeftButton(headWrapper);
+        addRightButton(headWrapper);
+        addYearAndMonth(headWrapper);
+    }
+
+    function addTodayButton(parent) {
+        const todayButton = document.createElement('button');
+        parent.appendChild(todayButton);
+        todayButton.id = "todayButton";
+        todayButton.innerText = "TODAY";
+
+        todayButton.addEventListener('click', changeToday);
+
+        function changeToday() {
+            today = new Date();
+            year = today.getFullYear();
+            mon = (today.getMonth() + 1) % 12;
+            h = 1;
+
+            const yearAndMonth = document.getElementById('yearAndMonth');
+            yearAndMonth.innerHTML = year + '.' + ('0' + mon).slice(-2);
+
+            const table = document.getElementById('table');
+            const tbody = document.getElementById('tbody');
+            table.removeChild(tbody);
+            addTableBody(table);
+
+        }
+    }
+
+    function addLeftButton(parent) {
+        const leftButton = document.createElement('button');
+        parent.appendChild(leftButton);
+        leftButton.id = "leftButton";
+        leftButton.innerText = "<";
+
+        leftButton.addEventListener('click',subsMonth);
+
+        function subsMonth(){
+            h = 1;
+            if(mon === 1){
+                mon = 12;
+                year-=1;
+            } else {
+                mon-=1;
+            }
+
+            const yearAndMonth = document.getElementById('yearAndMonth');
+            yearAndMonth.innerHTML = year + '.' + ('0' + mon).slice(-2);
+
+            const table = document.getElementById('table');
+            const tbody = document.getElementById('tbody');
+            table.removeChild(tbody);
+            addTableBody(table);
+        }
+    }
+
+    function addRightButton(parent) {
+        const rightButton = document.createElement('button');
+        parent.appendChild(rightButton);
+        rightButton.id = "rightButton";
+        rightButton.innerText = ">";
+
+        rightButton.addEventListener('click',addMonth);
+
+        function addMonth(){
+            h = 1;
+            if(mon > 12){
+                mon = 1;
+                year+=1;
+            } else {
+                mon+=1;
+            }
+
+            const yearAndMonth = document.getElementById('yearAndMonth');
+            yearAndMonth.innerHTML = year + '.' + ('0' + mon).slice(-2);
+
+            const table = document.getElementById('table');
+            const tbody = document.getElementById('tbody');
+            table.removeChild(tbody);
+            addTableBody(table);
+        }
+    }
+
+    function addYearAndMonth(parent) {
+        const yearAndMonth = document.createElement('div');
+        parent.appendChild(yearAndMonth);
+        yearAndMonth.id = 'yearAndMonth';
+        yearAndMonth.innerHTML = year + '.' + ('0' + mon).slice(-2);
     }
 
     function addTableWrapper(parent) {
@@ -32,11 +123,12 @@ window.onload = function () {
 
     function addTable(parent) {
         const table = document.createElement('table');
+        table.id = 'table';
         parent.appendChild(table);
         table.className = 'table';
 
         addTableHead(table);
-        addTableData(table);
+        addTableBody(table);
     }
 
     function addTableHead(parent) {
@@ -58,33 +150,71 @@ window.onload = function () {
         };
     }
 
-    function addTableData(parent) {
-        let h = 0;
+    function addTableBody(parent) {
         const tbody = document.createElement('tbody');
+        tbody.id = 'tbody';
         parent.appendChild(tbody);
+        addData(tbody);
+    }
+
+    function addData(parent) {
         for (let i = 1; i < 7; i++) {
             const tr = document.createElement('tr');
-            tbody.appendChild(tr);
+            parent.appendChild(tr);
             tr.id = `row${i}`;
             tr.className = `tableRow`;
+            const startDate = new Date(year, mon - 1, 1);
+            const dayIndex = startDate.getDay();
             for (let j = 0; j < 7; j++) {
                 const td = document.createElement('td');
                 td.id = `${tr.id}td${j}`;
-                td.innerText = countDay().getDate();
                 td.className = `tableData ${day[j]}`;
                 tr.appendChild(td);
-                if(countDay().getMonth()+1 !== getMonth){
-                    td.style.color = "lightgray";
-                }
-                function countDay(){
-                    const d = new Date(getYear, getMonth-1,1+h);
-                    return d;
+                if (dayIndex === 0) {
+                    let eachDay = new Date(year, mon - 1, h);
+                    td.innerText = eachDay.getDate();
+                    if (eachDay.getMonth() + 1 !== mon) {
+                        td.style.opacity = '0.5';
+                    }
+                } else if (dayIndex === 1) {
+                    let eachDay = new Date(year, mon - 1, h - 1);
+                    td.innerText = eachDay.getDate();
+                    if (eachDay.getMonth() + 1 !== mon) {
+                        td.style.opacity = '0.5';
+                    }
+                } else if (dayIndex === 2) {
+                    let eachDay = new Date(year, mon - 1, h - 2);
+                    td.innerText = eachDay.getDate();
+                    if (eachDay.getMonth() + 1 !== mon) {
+                        td.style.opacity = '0.5';
+                    }
+                } else if (dayIndex === 3) {
+                    let eachDay = new Date(year, mon - 1, h - 3);
+                    td.innerText = eachDay.getDate();
+                    if (eachDay.getMonth() + 1 !== mon) {
+                        td.style.opacity = '0.5';
+                    }
+                } else if (dayIndex === 4) {
+                    let eachDay = new Date(year, mon - 1, h - 4);
+                    td.innerText = eachDay.getDate();
+                    if (eachDay.getMonth() + 1 !== mon) {
+                        td.style.opacity = '0.5';
+                    }
+                } else if (dayIndex === 5) {
+                    let eachDay = new Date(year, mon - 1, h - 5);
+                    td.innerText = eachDay.getDate();
+                    if (eachDay.getMonth() + 1 !== mon) {
+                        td.style.opacity = '0.5';
+                    }
+                } else if (dayIndex === 6) {
+                    let eachDay = new Date(year, mon - 1, h - 6);
+                    td.innerText = eachDay.getDate();
+                    if (eachDay.getMonth() + 1 !== mon) {
+                        td.style.opacity = '0.5';
+                    }
                 }
                 h++;
-            };
+            }
         }
-
-        
     }
-
 }
