@@ -5,11 +5,17 @@ body{
 #root {
     display: flex;
     justify-content: center;
+    width: 95vw;
+    height: 95vw;
 }
 
 #wrapperAll {
-    width: 1200px;
-    height: 1000px;
+    max-width: 1200px;
+    width: 100vw;
+    min-width: 300px;
+    max-height: 1000px;
+    height: 100vw;
+    min-height: 500px;
     background-color: hsla(0,50%,100%,0.5);
     border: 1px solid lightgray;
     border-radius: 15px;
@@ -19,10 +25,9 @@ body{
 }
 
 #headWrapper {
-    font-size: 40px;
-    margin-top: 40px;
+    font-size: 30px;
     margin-bottom: 5px;
-    width: 1000px;
+    width: 90%;
     font-weight: bold;
     display: flex;
     align-items:center;
@@ -44,9 +49,12 @@ button {
 }
 
 #tableWrapper {
+    width: 80%;
+    height: 80%;
     background-color: white;
     border-radius: 15px;
     padding: 20px;
+    font-size: 10px;
 }
 
 .table {
@@ -66,8 +74,8 @@ button {
 
 .tableData {
     width: 120px;
-    height: 100px;
-    padding: 10px;
+    height: 50px;
+    padding: 2px;
     border-left: 1px solid lightgray;
     border-bottom:  1px solid lightgray;
     vertical-align: top;
