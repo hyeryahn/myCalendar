@@ -1,0 +1,60 @@
+body{
+    background-color:#333;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+}
+
+#wrapperAll {
+    width: 1200px;
+    height: 1000px;
+    background-color: hsla(0,50%,100%,0.5);
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#headWrapper {
+    font-size: 40px;
+    margin: 40px 0;
+    font-weight: bold;
+}
+
+#tableWrapper {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.table {
+    border-collapse: collapse;
+}
+
+.thead{
+    border-top:  1px solid lightgray;
+    border-bottom:  1px solid lightgray;
+}
+
+.tableHead { 
+    height: 30px;
+    text-align: left;
+    padding: 0 10px;
+}
+
+.tableData {
+    width: 120px;
+    height: 100px;
+    padding: 10px;
+    border-left: 1px solid lightgray;
+    border-bottom:  1px solid lightgray;
+    vertical-align: top;
+}
+
+.Sun{
+    color: red;
+    border-left: none;  
+}
