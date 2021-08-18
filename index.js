@@ -3,7 +3,7 @@ window.onload = function () {
     const day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     let today = new Date();
     let year = today.getFullYear();
-    let mon = today.getMonth() <=11 ? today.getMonth()+1 : 1;
+    let mon = today.getMonth() <= 11 ? today.getMonth() + 1 : 1;
     let h = 1;
     return addWrapperAll(root);
 
@@ -39,7 +39,7 @@ window.onload = function () {
         function changeToday() {
             today = new Date();
             year = today.getFullYear();
-            mon = today.getMonth() <=11 ? today.getMonth()+1 : 1;
+            mon = today.getMonth() <= 11 ? today.getMonth() + 1 : 1;
             h = 1;
 
             const yearAndMonth = document.getElementById('yearAndMonth');
@@ -59,16 +59,11 @@ window.onload = function () {
         leftButton.id = "leftButton";
         leftButton.innerText = "<";
 
-        leftButton.addEventListener('click',subsMonth);
+        leftButton.addEventListener('click', subsMonth);
 
-        function subsMonth(){
+        function subsMonth() {
             h = 1;
-            if(mon === 1){
-                mon = 12;
-                year-=1;
-            } else {
-                mon-=1;
-            }
+            mon === 1 ? (mon = 12, year -= 1) : mon -= 1;
 
             const yearAndMonth = document.getElementById('yearAndMonth');
             yearAndMonth.innerHTML = year + '.' + ('0' + mon).slice(-2);
@@ -86,16 +81,11 @@ window.onload = function () {
         rightButton.id = "rightButton";
         rightButton.innerText = ">";
 
-        rightButton.addEventListener('click',addMonth);
+        rightButton.addEventListener('click', addMonth);
 
-        function addMonth(){
+        function addMonth() {
             h = 1;
-            if(mon >= 12){
-                mon = 1;
-                year+=1;
-            } else {
-                mon+=1;
-            }
+            mon >= 12 ? (mon = 1, year += 1) : mon += 1;
 
             const yearAndMonth = document.getElementById('yearAndMonth');
             yearAndMonth.innerHTML = year + '.' + ('0' + mon).slice(-2);
@@ -170,47 +160,13 @@ window.onload = function () {
                 td.id = `${tr.id}td${j}`;
                 td.className = `tableData ${day[j]}`;
                 tr.appendChild(td);
-                if (dayIndex === 0) {
-                    let eachDay = new Date(year, mon - 1, h);
-                    td.innerText = eachDay;
-                    if (eachDay.getMonth() + 1 !== mon) {
-                        td.style.opacity = '0.5';
-                    }
-                } else if (dayIndex === 1) {
-                    let eachDay = new Date(year, mon - 1, h - 1);
-                    td.innerText = eachDay;
-                    if (eachDay.getMonth() + 1 !== mon) {
-                        td.style.opacity = '0.5';
-                    }
-                } else if (dayIndex === 2) {
-                    let eachDay = new Date(year, mon - 1, h - 2);
-                    td.innerText = eachDay;
-                    if (eachDay.getMonth() + 1 !== mon) {
-                        td.style.opacity = '0.5';
-                    }
-                } else if (dayIndex === 3) {
-                    let eachDay = new Date(year, mon - 1, h - 3);
-                    td.innerText = eachDay;
-                    if (eachDay.getMonth() + 1 !== mon) {
-                        td.style.opacity = '0.5';
-                    }
-                } else if (dayIndex === 4) {
-                    let eachDay = new Date(year, mon - 1, h - 4);
-                    td.innerText = eachDay;
-                    if (eachDay.getMonth() + 1 !== mon) {
-                        td.style.opacity = '0.5';
-                    }
-                } else if (dayIndex === 5) {
-                    let eachDay = new Date(year, mon - 1, h - 5);
-                    td.innerText = eachDay;
-                    if (eachDay.getMonth() + 1 !== mon) {
-                        td.style.opacity = '0.5';
-                    }
-                } else if (dayIndex === 6) {
-                    let eachDay = new Date(year, mon - 1, h - 6);
-                    td.innerText = eachDay;
-                    if (eachDay.getMonth() + 1 !== mon) {
-                        td.style.opacity = '0.5';
+                for (let k = 0; k < 7; k++) {
+                    if (dayIndex === k) {
+                        let eachDay = new Date(year, mon - 1, h - k);
+                        td.innerText = eachDay.getDate();
+                        if (eachDay.getMonth() + 1 !== mon) {
+                            td.style.opacity = '0.5';
+                        }
                     }
                 }
                 h++;
