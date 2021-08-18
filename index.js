@@ -3,7 +3,7 @@ window.onload = function () {
     const day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     let today = new Date();
     let year = today.getFullYear();
-    let mon = (today.getMonth() + 1) % 12;
+    let mon = today.getMonth() <=11 ? today.getMonth()+1 : 1;
     let h = 1;
     return addWrapperAll(root);
 
@@ -39,7 +39,7 @@ window.onload = function () {
         function changeToday() {
             today = new Date();
             year = today.getFullYear();
-            mon = (today.getMonth() + 1) % 12;
+            mon = today.getMonth() <=11 ? today.getMonth()+1 : 1;
             h = 1;
 
             const yearAndMonth = document.getElementById('yearAndMonth');
@@ -90,7 +90,7 @@ window.onload = function () {
 
         function addMonth(){
             h = 1;
-            if(mon > 12){
+            if(mon >= 12){
                 mon = 1;
                 year+=1;
             } else {
@@ -172,43 +172,43 @@ window.onload = function () {
                 tr.appendChild(td);
                 if (dayIndex === 0) {
                     let eachDay = new Date(year, mon - 1, h);
-                    td.innerText = eachDay.getDate();
+                    td.innerText = eachDay;
                     if (eachDay.getMonth() + 1 !== mon) {
                         td.style.opacity = '0.5';
                     }
                 } else if (dayIndex === 1) {
                     let eachDay = new Date(year, mon - 1, h - 1);
-                    td.innerText = eachDay.getDate();
+                    td.innerText = eachDay;
                     if (eachDay.getMonth() + 1 !== mon) {
                         td.style.opacity = '0.5';
                     }
                 } else if (dayIndex === 2) {
                     let eachDay = new Date(year, mon - 1, h - 2);
-                    td.innerText = eachDay.getDate();
+                    td.innerText = eachDay;
                     if (eachDay.getMonth() + 1 !== mon) {
                         td.style.opacity = '0.5';
                     }
                 } else if (dayIndex === 3) {
                     let eachDay = new Date(year, mon - 1, h - 3);
-                    td.innerText = eachDay.getDate();
+                    td.innerText = eachDay;
                     if (eachDay.getMonth() + 1 !== mon) {
                         td.style.opacity = '0.5';
                     }
                 } else if (dayIndex === 4) {
                     let eachDay = new Date(year, mon - 1, h - 4);
-                    td.innerText = eachDay.getDate();
+                    td.innerText = eachDay;
                     if (eachDay.getMonth() + 1 !== mon) {
                         td.style.opacity = '0.5';
                     }
                 } else if (dayIndex === 5) {
                     let eachDay = new Date(year, mon - 1, h - 5);
-                    td.innerText = eachDay.getDate();
+                    td.innerText = eachDay;
                     if (eachDay.getMonth() + 1 !== mon) {
                         td.style.opacity = '0.5';
                     }
                 } else if (dayIndex === 6) {
                     let eachDay = new Date(year, mon - 1, h - 6);
-                    td.innerText = eachDay.getDate();
+                    td.innerText = eachDay;
                     if (eachDay.getMonth() + 1 !== mon) {
                         td.style.opacity = '0.5';
                     }
