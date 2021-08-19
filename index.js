@@ -15,7 +15,7 @@ window.onload = function () {
         addPopupWrapper(wrapperAll);
         addHeadWrapper(wrapperAll);
         addTableWrapper(wrapperAll);
-        
+
     }
 
     function addHeadWrapper(parent) {
@@ -169,45 +169,61 @@ window.onload = function () {
                 const td = document.createElement('td');
                 td.id = `${tr.id}td${j}`;
                 td.className = `tableData ${day[j]}`;
-
+                td.name='yyyy-MM-dd';
                 tr.appendChild(td);
 
                 for (let k = 0; k < 7; k++) {
                     if (dayIndex === k) {
                         let eachDay = new Date(year, mon - 1, h - k);
+                        td.name = `${eachDay.getFullYear()}-${('0'+(eachDay.getMonth()+1)).slice(-2)}-${('0'+eachDay.getDate()).slice(-2)}`;
                         let today = new Date();
                         td.innerText = eachDay.getDate();
 
                         if (eachDay.getMonth() + 1 !== mon) {
                             td.style.opacity = '0.5';
                         }
-                        if(eachDay.getFullYear() === today.getFullYear() &&
-                        eachDay.getMonth() === today.getMonth() &&
-                        eachDay.getDate() === today.getDate()){
-                            td.style.color = 'navy'; 
+                        if (eachDay.getFullYear() === today.getFullYear() &&
+                            eachDay.getMonth() === today.getMonth() &&
+                            eachDay.getDate() === today.getDate()) {
+                            td.style.color = 'navy';
                             td.style.fontWeight = 'bolder';
                             td.style.textDecoration = 'underline';
                         }
                     }
                 }
+
+                td.addEventListener('click', viewPopup);
+
+                    function viewPopup() {
+                        const popup = document.getElementById('popupWrapper');
+                        popup.style.display = 'block';
+
+                        const startDate = document.getElementById('startDate');
+                        const endDate =  document.getElementById('endDate');
+                        startDate.value = td.name;
+                        endDate.value = td.name;
+                        
+                    }
+
+
                 h++;
             }
         }
     }
 
-    function addPopupWrapper(parent){
+    function addPopupWrapper(parent) {
         const popupWrapper = document.createElement('div');
         popupWrapper.id = 'popupWrapper';
         parent.appendChild(popupWrapper);
 
-        
+
         colorWrapper(popupWrapper);
         dateWrapper(popupWrapper);
         popInput(popupWrapper);
         popButtonWrapper(popupWrapper)
     }
 
-    function colorWrapper(parent){
+    function colorWrapper(parent) {
         const colorWrapper = document.createElement('div');
         colorWrapper.id = 'colorWrapper';
         parent.appendChild(colorWrapper);
@@ -217,29 +233,44 @@ window.onload = function () {
         addCloseButton(colorWrapper);
     }
 
-    function addCloseButton(parent){
+    function addCloseButton(parent) {
         const closeButton = document.createElement('button');
         closeButton.id = 'closeButton';
         closeButton.innerText = 'X';
         parent.appendChild(closeButton);
-    }
-    
-    function colorRange(parent){
-        const dropDown = document.createElement('input');
-        dropDown.type = 'range';
-        dropDown.min = '0';
-        dropDown.max = '359';
-        dropDown.id = 'colors';
-        parent.appendChild(dropDown);
+
+        closeButton.addEventListener('click', close)
+
+        function close() {
+            const popup = document.getElementById('popupWrapper');
+            popup.style.display = 'none';
+        }
     }
 
-    function colorPreview(parent){
+    function colorRange(parent) {
+        const colorRange = document.createElement('input');
+        colorRange.type = 'range';
+        colorRange.min = '0';
+        colorRange.max = '359';
+        colorRange.id = 'colors';
+        colorRange.value = '0';
+        parent.appendChild(colorRange);
+
+        colorRange.addEventListener('change', changeColor)
+
+        function changeColor() {
+            const preview = document.getElementById('colorPreview');
+            preview.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+        }
+    }
+
+    function colorPreview(parent) {
         const colorPreview = document.createElement('div');
         colorPreview.id = 'colorPreview';
         parent.appendChild(colorPreview);
     }
 
-    function dateWrapper(parent){
+    function dateWrapper(parent) {
         const dateWrapper = document.createElement('div');
         dateWrapper.id = 'dateWrapper';
         parent.appendChild(dateWrapper);
@@ -248,28 +279,28 @@ window.onload = function () {
         popEndDate(dateWrapper);
     }
 
-    function popStartDate(parent){
+    function popStartDate(parent) {
         const startDate = document.createElement('input');
         startDate.type = 'date';
         startDate.id = 'startDate';
         parent.appendChild(startDate);
     }
 
-    function popEndDate(parent){
+    function popEndDate(parent) {
         const endDate = document.createElement('input');
         endDate.type = 'date';
         endDate.id = 'endDate';
         parent.appendChild(endDate);
     }
 
-    function popInput(parent){
+    function popInput(parent) {
         const input = document.createElement('input');
         input.type = 'text';
         input.id = 'textInput';
         parent.appendChild(input);
     }
 
-    function popButtonWrapper(parent){
+    function popButtonWrapper(parent) {
         const buttonWrapper = document.createElement('div');
         buttonWrapper.id = 'buttonWrapper';
         parent.appendChild(buttonWrapper);
@@ -277,7 +308,7 @@ window.onload = function () {
         popButton(buttonWrapper)
     }
 
-    function popButton(parent){
+    function popButton(parent) {
         const doneButton = document.createElement('button');
         doneButton.id = 'doneButton';
         doneButton.innerText = 'Save';
