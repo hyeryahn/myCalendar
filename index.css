@@ -78,7 +78,6 @@ button {
     font-size: 10px;
     min-width: 20px;
     height: 70px;
-    padding: 2px;
     border-left: 1px solid lightgray;
     border-bottom:  1px solid lightgray;
     vertical-align: top;
@@ -150,13 +149,15 @@ button {
     justify-content: flex-end;
 }
 
-#doneButton{
+#saveButton{
     font-size: 10px;
     color:#333;
 }
 
-
-
+span {
+    display:flex;
+    flex-direction: column;
+}
 
 
 
