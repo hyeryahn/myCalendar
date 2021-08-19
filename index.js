@@ -169,43 +169,48 @@ window.onload = function () {
                 const td = document.createElement('td');
                 td.id = `${tr.id}td${j}`;
                 td.className = `tableData ${day[j]}`;
-                td.name='yyyy-MM-dd';
+                td.name = 'yyyy-MM-dd';
                 tr.appendChild(td);
 
-                for (let k = 0; k < 7; k++) {
-                    if (dayIndex === k) {
-                        let eachDay = new Date(year, mon - 1, h - k);
-                        td.name = `${eachDay.getFullYear()}-${('0'+(eachDay.getMonth()+1)).slice(-2)}-${('0'+eachDay.getDate()).slice(-2)}`;
-                        let today = new Date();
-                        td.innerText = eachDay.getDate();
-
-                        if (eachDay.getMonth() + 1 !== mon) {
-                            td.style.opacity = '0.5';
-                        }
-                        if (eachDay.getFullYear() === today.getFullYear() &&
-                            eachDay.getMonth() === today.getMonth() &&
-                            eachDay.getDate() === today.getDate()) {
-                            td.style.color = 'navy';
-                            td.style.fontWeight = 'bolder';
-                            td.style.textDecoration = 'underline';
+                for (let s = 0; s < 4; s++) {
+                    const span = document.createElement('span');
+                    span.id = `span${i}${j}${s}`;
+                    span.className = `span span${s}`;
+                    td.appendChild(span);
+                    if(span.id[6] === '0'){
+                        for (let k = 0; k < 7; k++) {
+                            if (dayIndex === k) {
+                                let eachDay = new Date(year, mon - 1, h - k);
+                                td.name = `${eachDay.getFullYear()}-${('0' + (eachDay.getMonth() + 1)).slice(-2)}-${('0' + eachDay.getDate()).slice(-2)}`;
+                                let today = new Date();
+                                span.innerText = eachDay.getDate();
+    
+                                if (eachDay.getMonth() + 1 !== mon) {
+                                    span.style.opacity = '0.5';
+                                }
+                                if (eachDay.getFullYear() === today.getFullYear() &&
+                                    eachDay.getMonth() === today.getMonth() &&
+                                    eachDay.getDate() === today.getDate()) {
+                                    span.style.color = 'navy';
+                                    span.style.fontWeight = 'bolder';
+                                    span.style.textDecoration = 'underline';
+                                }
+                            }
                         }
                     }
                 }
 
                 td.addEventListener('click', viewPopup);
 
-                    function viewPopup() {
-                        const popup = document.getElementById('popupWrapper');
-                        popup.style.display = 'block';
+                function viewPopup() {
+                    const popup = document.getElementById('popupWrapper');
+                    popup.style.display = 'block';
 
-                        const startDate = document.getElementById('startDate');
-                        const endDate =  document.getElementById('endDate');
-                        startDate.value = td.name;
-                        endDate.value = td.name;
-                        
-                    }
-
-
+                    const startDate = document.getElementById('startDate');
+                    const endDate = document.getElementById('endDate');
+                    startDate.value = td.name;
+                    endDate.value = td.name;
+                }
                 h++;
             }
         }
@@ -215,7 +220,6 @@ window.onload = function () {
         const popupWrapper = document.createElement('div');
         popupWrapper.id = 'popupWrapper';
         parent.appendChild(popupWrapper);
-
 
         colorWrapper(popupWrapper);
         dateWrapper(popupWrapper);
