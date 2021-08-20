@@ -87,11 +87,14 @@ button {
     position: relative;
 }
 
-.Sun{
+.red{
     color: red;
-    border-left: none;  
+    
 }
 
+.Sun{
+    border-left: none;  
+}
 #popupWrapper {
    width: 230px;
    height: 150px;
@@ -166,6 +169,7 @@ button {
     display:flex;
     flex-direction: column;
     width: 40px;
+    height: 13px;
     
 }
 .div1 {

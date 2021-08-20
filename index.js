@@ -142,7 +142,9 @@ window.onload = function () {
             th.innerText = day[i];
             th.id = `th${i}`;
             th.className = `tableHead ${day[i]}`;
-
+            if (th.id === 'th0') {
+                th.className = `tableHead ${day[i]} red`;
+            }
             tr.appendChild(th);
         }
     }
@@ -178,6 +180,9 @@ window.onload = function () {
                     div.className = `div${s}`;
                     td.appendChild(div);
                     if (div.id[5] === '0') {
+                        if (td.id === `${tr.id}td0`) {
+                            div.className = `div${s} red`;
+                        }
                         for (let k = 0; k < 7; k++) {
                             if (dayIndex === k) {
                                 let eachDay = new Date(year, mon - 1, h - k);
@@ -215,36 +220,135 @@ window.onload = function () {
                     const defDate = (defTime / (1000 * 3600 * 24)) + 1;
                     const colorRange = document.getElementById('colorRange');
                     const textInput = document.getElementById('textInput').value;
+                    let div1 = document.getElementById(`div${i}${j}1`);
+                    let div2 = document.getElementById(`div${i}${j}2`);
+                    let div3 = document.getElementById(`div${i}${j}3`);
+                    const countFirstWeek = defDate <= (7 - getStartTime.getDay()) ? defDate : (7 - getStartTime.getDay());
 
-                    const div1 = document.getElementById(`div${i}${j}1`);
-                    const div2 = document.getElementById(`div${i}${j}2`);
-                    const div3 = document.getElementById(`div${i}${j}3`);
+                    let countWeeks = Math.floor((defDate - countFirstWeek) / 7);
+                    const lastDays = (defDate-countFirstWeek)%7;
 
                     if (startDate === td.name && textInput && !div1.innerText) {
                         div1.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
                         div1.innerText = textInput;
-                        div1.style.width = `${41 * defDate}px`;
+                        div1.style.width = `${41 * countFirstWeek}px`;
+
+                        for (let w = 1; w <= countWeeks; w++) {
+                            div1 = document.getElementById(`div${i + w}01`);
+                            div1.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                            div1.style.width = `${41 * 7}px`;
+                        }
+                        if (lastDays > 0) {
+                            div1 = document.getElementById(`div${i + countWeeks + 1}01`);
+                            div1.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                            div1.style.width = `${41 * lastDays}px`;
+                        }
+
                     } else if (startDate === td.name && textInput && !div2.innerText) {
                         div2.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
                         div2.innerText = textInput;
-                        div2.style.width = `${41 * defDate}px`;
+                        div2.style.width = `${41 * countFirstWeek}px`;
+
+                        for (let w = 1; w <= countWeeks; w++) {
+                            div2 = document.getElementById(`div${i + w}01`);
+                            div2.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                            div2.style.width = `${41 * 7}px`;
+                        }
+                        if (lastDays > 0) {
+                            div2 = document.getElementById(`div${i + countWeeks + 1}01`);
+                            div2.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                            div2.style.width = `${41 * lastDays}px`;
+                        }
                     } else if (startDate === td.name && textInput && !div3.innerText) {
                         div3.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
                         div3.innerText = textInput;
-                        div3.style.width = `${41 * defDate}px`; 
+                        div3.style.width = `${41 * countFirstWeek}px`;
+
+                        for (let w = 1; w <= countWeeks; w++) {
+                            div3 = document.getElementById(`div${i + w}01`);
+                            div3.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                            div3.style.width = `${41 * 7}px`;
+                        }
+                        if (lastDays > 0) {
+                            div3 = document.getElementById(`div${i + countWeeks + 1}01`);
+                            div3.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                            div3.style.width = `${41 * lastDays}px`;
+                        }
                     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    /*if (startDate === td.name && textInput && !div1.innerText) {
+                        div1 = document.getElementById(`div${i+countWeeks}${j}1`);
+                        div1.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                        div1.innerText = textInput;
+                        div1.style.width = `${41 * inThisWeek}px`;
+                    }*/
+
+
+
+
+
+
+
+                    /*  
+                      const nextLineDiv1 = document.getElementById(`div${i + 1}${j}1`);
+                      const nextLineDiv2 = document.getElementById(`div${i + 1}${j}2`);
+                      const nextLineDiv3 = document.getElementById(`div${i + 1}${j}3`);
+  
+                      if (startDate === td.name && textInput && !div1.innerText) {
+                          div1.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                          div1.innerText = textInput;
+                          div1.style.width = `${41 * thisWeek}px`;
+                          if (nextWeek > 0) {
+                              nextLineDiv1.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                              nextLineDiv1.style.width = `${41 * nextWeek}px`;
+                          }
+                      } else if (startDate === td.name && textInput && !div2.innerText) {
+                          div2.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                          div2.innerText = textInput;
+                          div2.style.width = `${41 * thisWeek}px`;
+                          if (nextWeek > 0) {
+                              nextLineDiv2.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                              nextLineDiv2.style.width = `${41 * nextWeek}px`;
+                          }
+                      } else if (startDate === td.name && textInput && !div3.innerText) {
+                          div3.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                          div3.innerText = textInput;
+                          div3.style.width = `${41 * thisWeek}px`;
+                          if (nextWeek > 0) {
+                              nextLineDiv3.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                              nextLineDiv3.style.width = `${41 * nextWeek}px`;
+                          }
+                      }*/
                 }
 
                 td.addEventListener('click', viewPopup);
 
-                function viewPopup(e) {
+                function viewPopup() {
                     const popup = document.getElementById('popupWrapper');
                     popup.style.display = 'block';
 
                     const startDate = document.getElementById('startDate');
                     const endDate = document.getElementById('endDate');
                     startDate.value = td.name;
-                    endDate.value = e.target.name;
+                    endDate.value = td.name;
                     let textInput = document.getElementById('textInput');
                     textInput.value = "";
                     const colorRange = document.getElementById('colorRange');
