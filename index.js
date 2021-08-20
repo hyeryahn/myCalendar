@@ -228,61 +228,81 @@ window.onload = function () {
                     let countWeeks = Math.floor((defDate - countFirstWeek) / 7);
                     const lastDays = (defDate - countFirstWeek) % 7;
 
-                    if (startDate === td.name && textInput && !div1.innerText) {
+                    if (startDate === td.name && textInput && !JSON.parse(localStorage.getItem(td.id + 0))) {
                         div1.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
                         div1.innerText = textInput;
                         div1.style.width = `${41 * countFirstWeek}px`;
-                        for(let c=0; c<countFirstWeek; c++){
-                            localStorage.setItem(td.id.slice(0,6)+(Number(td.id[6])+c), JSON.stringify({ name: 'div1', innerText: textInput, color: `hsl(${colorRange.value},50%, 80%)` }))
+                        for (let c = 0; c < countFirstWeek; c++) {
+                            localStorage.setItem(td.id.slice(0, 6) + (Number(td.id[6]) + c) + 0, JSON.stringify({ name: 'div1', value: textInput, color: `hsl(${colorRange.value},50%, 80%)` }))
                         }
-                        
 
                         for (let w = 1; w <= countWeeks; w++) {
                             div1 = document.getElementById(`div${i + w}01`);
                             div1.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
                             div1.style.width = `${41 * 7}px`;
+                            for (let c = 0; c < 7; c++) {
+                                localStorage.setItem(td.id.slice(0, 3) +(Number(td.id[3])+w)+'td'+(0 + c) + 0, JSON.stringify({ name: 'div1', value: textInput, color: `hsl(${colorRange.value},50%, 80%)` }))
+                            }
                         }
+
                         if (lastDays > 0) {
                             div1 = document.getElementById(`div${i + countWeeks + 1}01`);
                             div1.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
                             div1.style.width = `${41 * lastDays}px`;
+                            for (let c = 0; c < lastDays; c++) {
+                                localStorage.setItem(td.id.slice(0, 3) +(Number(td.id[3])+countWeeks+1)+'td'+(0 + c) + 0, JSON.stringify({ name: 'div1', value: textInput, color: `hsl(${colorRange.value},50%, 80%)` }))
+                            }
                         }
 
-                    } else if (startDate === td.name && textInput && !div2.innerText) {
+                    } else if (startDate === td.name && textInput && !JSON.parse(localStorage.getItem(td.id + 1))) {
                         div2.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
                         div2.innerText = textInput;
                         div2.style.width = `${41 * countFirstWeek}px`;
-                        for(let c=0; c<countFirstWeek; c++){
-                            localStorage.setItem(td.id.slice(0,6)+(Number(td.id[6])+c), JSON.stringify({ name: 'div2', innerText: textInput, color: `hsl(${colorRange.value},50%, 80%)` }))
+                        for (let c = 0; c < countFirstWeek; c++) {
+                            localStorage.setItem(td.id.slice(0, 6) + (Number(td.id[6]) + c) + 1, JSON.stringify({ name: 'div2', value: textInput, color: `hsl(${colorRange.value},50%, 80%)` }))
                         }
 
                         for (let w = 1; w <= countWeeks; w++) {
-                            div2 = document.getElementById(`div${i + w}01`);
+                            div2 = document.getElementById(`div${i + w}02`);
                             div2.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
                             div2.style.width = `${41 * 7}px`;
+                            for (let c = 0; c < 7; c++) {
+                                localStorage.setItem(td.id.slice(0, 3) +(Number(td.id[3])+w)+'td'+(0 + c) + 1, JSON.stringify({ name: 'div2', value: textInput, color: `hsl(${colorRange.value},50%, 80%)` }))
+                            }
                         }
+
                         if (lastDays > 0) {
-                            div2 = document.getElementById(`div${i + countWeeks + 1}01`);
+                            div2 = document.getElementById(`div${i + countWeeks + 1}02`);
                             div2.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
                             div2.style.width = `${41 * lastDays}px`;
+                            for (let c = 0; c < lastDays; c++) {
+                                localStorage.setItem(td.id.slice(0, 3) +(Number(td.id[3])+countWeeks+1)+'td'+(0 + c) + 1, JSON.stringify({ name: 'div2', value: textInput, color: `hsl(${colorRange.value},50%, 80%)` }))
+                            }
                         }
-                    } else if (startDate === td.name && textInput && !div3.innerText) {
+                    } else if (startDate === td.name && textInput && !JSON.parse(localStorage.getItem(td.id + 2))) {
                         div3.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
                         div3.innerText = textInput;
                         div3.style.width = `${41 * countFirstWeek}px`;
-                        for(let c=0; c<countFirstWeek; c++){
-                            localStorage.setItem(td.id.slice(0,6)+(Number(td.id[6])+c), JSON.stringify({ name: 'div3', innerText: textInput, color: `hsl(${colorRange.value},50%, 80%)` }))
+                        for (let c = 0; c < countFirstWeek; c++) {
+                            localStorage.setItem(td.id.slice(0, 6) + (Number(td.id[6]) + c) + 2, JSON.stringify({ name: 'div3', value: textInput, color: `hsl(${colorRange.value},50%, 80%)` }))
                         }
 
                         for (let w = 1; w <= countWeeks; w++) {
-                            div3 = document.getElementById(`div${i + w}01`);
+                            div3 = document.getElementById(`div${i + w}03`);
                             div3.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
                             div3.style.width = `${41 * 7}px`;
+                            for (let c = 0; c < 7; c++) {
+                                localStorage.setItem(td.id.slice(0, 3) +(Number(td.id[3])+w)+'td'+(0 + c) + 2, JSON.stringify({ name: 'div3', value: textInput, color: `hsl(${colorRange.value},50%, 80%)` }))
+                            }
                         }
+
                         if (lastDays > 0) {
-                            div3 = document.getElementById(`div${i + countWeeks + 1}01`);
+                            div3 = document.getElementById(`div${i + countWeeks + 1}03`);
                             div3.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
                             div3.style.width = `${41 * lastDays}px`;
+                            for (let c = 0; c < lastDays; c++) {
+                                localStorage.setItem(td.id.slice(0, 3) +(Number(td.id[3])+countWeeks+1)+'td'+(0 + c) + 2, JSON.stringify({ name: 'div3', value: textInput, color: `hsl(${colorRange.value},50%, 80%)` }))
+                            }
                         }
                     }
 
