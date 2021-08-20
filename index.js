@@ -173,82 +173,84 @@ window.onload = function () {
                 tr.appendChild(td);
 
                 for (let s = 0; s < 4; s++) {
-                    const span = document.createElement('span');
-                    span.id = `span${i}${j}${s}`;
-                    span.className = `span${s}`;
-                    td.appendChild(span);
-                    if (span.id[6] === '0') {
+                    const div = document.createElement('div');
+                    div.id = `div${i}${j}${s}`;
+                    div.className = `div${s}`;
+                    td.appendChild(div);
+                    if (div.id[5] === '0') {
                         for (let k = 0; k < 7; k++) {
                             if (dayIndex === k) {
                                 let eachDay = new Date(year, mon - 1, h - k);
                                 td.name = `${eachDay.getFullYear()}-${('0' + (eachDay.getMonth() + 1)).slice(-2)}-${('0' + eachDay.getDate()).slice(-2)}`;
                                 let today = new Date();
-                                span.innerText = eachDay.getDate();
+                                div.innerText = eachDay.getDate();
 
                                 if (eachDay.getMonth() + 1 !== mon) {
-                                    span.style.opacity = '0.5';
+                                    div.style.opacity = '0.5';
                                 }
                                 if (eachDay.getFullYear() === today.getFullYear() &&
                                     eachDay.getMonth() === today.getMonth() &&
                                     eachDay.getDate() === today.getDate()) {
-                                    span.style.color = 'navy';
-                                    span.style.fontWeight = 'bolder';
-                                    span.style.textDecoration = 'underline';
+                                    div.style.color = 'navy';
+                                    div.style.fontWeight = 'bolder';
+                                    div.style.textDecoration = 'underline';
                                 }
                             }
                         }
                     }
+                }
 
+                const saveButton = document.getElementById('saveButton');
+                saveButton.addEventListener('click', saveSchedule);
 
-                    const saveButton = document.getElementById('saveButton');
-                    saveButton.addEventListener('click', saveSchedule);
+                function saveSchedule() {
+                    const popup = document.getElementById('popupWrapper');
+                    popup.style.display = 'none';
 
-                    function saveSchedule() {
-                        const popup = document.getElementById('popupWrapper');
-                        popup.style.display = 'none';
+                    const startDate = document.getElementById('startDate').value;
+                    const endDate = document.getElementById('endDate').value;
+                    const getStartTime = new Date(startDate);
+                    const getEndTime = new Date(endDate);
+                    const defTime = getEndTime.getTime() - getStartTime.getTime();
+                    const defDate = (defTime / (1000 * 3600 * 24)) + 1;
+                    const colorRange = document.getElementById('colorRange');
+                    const textInput = document.getElementById('textInput').value;
 
-                        const startDate = document.getElementById('startDate').value;
-                        const endDate = document.getElementById('endDate').value;
-                        const colorRange = document.getElementById('colorRange');
-                        const textInput = document.getElementById('textInput').value;
+                    const div1 = document.getElementById(`div${i}${j}1`);
+                    const div2 = document.getElementById(`div${i}${j}2`);
+                    const div3 = document.getElementById(`div${i}${j}3`);
 
-                        
-                        if(startDate === td.name && textInput){
-                            const span1 = document.getElementById(`span${i}${j}1`);
-                            const span2 = document.getElementById(`span${i}${j}2`);
-                            const span3 = document.getElementById(`span${i}${j}3`);
-                            if(!span1.innerText){
-                                span1.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
-                                span1.innerText = textInput;
-                            }
-                            
-                        }
-
-                        
-
-
-
-                        //if (startDate === td.name) {
-                         //   span1.style.backgroundColor = 
-                        //}
-
-
-
+                    if (startDate === td.name && textInput && !div1.innerText) {
+                        div1.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                        div1.innerText = textInput;
+                        div1.style.width = `${41 * defDate}px`;
+                    } else if (startDate === td.name && textInput && !div2.innerText) {
+                        div2.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                        div2.innerText = textInput;
+                        div2.style.width = `${41 * defDate}px`;
+                    } else if (startDate === td.name && textInput && !div3.innerText) {
+                        div3.style.backgroundColor = `hsl(${colorRange.value},50%, 80%)`;
+                        div3.innerText = textInput;
+                        div3.style.width = `${41 * defDate}px`; 
                     }
                 }
 
                 td.addEventListener('click', viewPopup);
 
-                function viewPopup() {
+                function viewPopup(e) {
                     const popup = document.getElementById('popupWrapper');
                     popup.style.display = 'block';
 
                     const startDate = document.getElementById('startDate');
                     const endDate = document.getElementById('endDate');
                     startDate.value = td.name;
-                    endDate.value = td.name;
+                    endDate.value = e.target.name;
                     let textInput = document.getElementById('textInput');
-                    textInput.value ="";
+                    textInput.value = "";
+                    const colorRange = document.getElementById('colorRange');
+                    colorRange.value = 0;
+                    const colorPreview = document.getElementById('colorPreview');
+                    colorPreview.style.backgroundColor = `hsl(0,50%, 80%)`;
                 }
                 h++;
             }
