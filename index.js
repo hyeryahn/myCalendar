@@ -22,7 +22,7 @@ window.onload = function () {
         const headWrapper = document.createElement('div');
         parent.appendChild(headWrapper);
         headWrapper.id = 'headWrapper';
-
+        addReset(headWrapper);
         addTodayButton(headWrapper);
         addLeftButton(headWrapper);
         addRightButton(headWrapper);
@@ -52,6 +52,18 @@ window.onload = function () {
             table.removeChild(tbody);
             addTableBody(table);
 
+        }
+    }
+    function addReset(parent){
+        const resetButton = document.createElement('button');
+        resetButton.innerText = 'RESET';
+        resetButton.id = 'resetButton';
+        parent.appendChild(resetButton);
+        
+        resetButton.addEventListener('click',reset)
+
+        function reset(){
+            localStorage.clear();
         }
     }
 
